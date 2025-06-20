@@ -10,13 +10,13 @@ interface Article {
   id: string
   title: string
   excerpt?: string
-  imageUrl: string|null
+  featuredImage: string | null
   createdAt: Date
   readTime?: number
   category?: string
   author: {
     name: string
-    imageUrl?: string
+    imageUrl: string|null
   }
   _count: {
     likes: number
@@ -36,7 +36,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         
           <div className="relative h-48 overflow-hidden rounded-t-lg">
             <Image
-              src={"/android-dark.jpg"}
+              src={ "/android-dark.jpg"}
               alt={article.title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -67,7 +67,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <Avatar className="h-8 w-8 border border-gray-700">
-                <AvatarImage src={article.author.imageUrl} alt={article.author.name} />
+                {article.author.imageUrl &&<AvatarImage src={article.author.imageUrl} alt={article.author.name} />}
                 <AvatarFallback className="bg-gray-800 text-gray-300 text-xs">
                   {article.author.name.charAt(0).toUpperCase()}
                 </AvatarFallback>

@@ -146,7 +146,8 @@ async function ArticleContent({ articleId }: { articleId: string }) {
   )
 }
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
+export default async function ArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const {id} = await params
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header Section */}
@@ -160,7 +161,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
             </div>
           }
         >
-          <ArticleContent articleId={params.id} />
+          <ArticleContent articleId={id} />
         </Suspense>
       </div>
     </div>

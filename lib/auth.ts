@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server"
+import { auth,currentUser } from "@clerk/nextjs/server"
 import { db } from "@/lib/db"
 
 export async function getCurrentUser() {
@@ -15,7 +15,7 @@ export async function getCurrentUser() {
 
   // If user doesn't exist, create them
   if (!user) {
-    const { user: clerkUser } = await auth()
+    const clerkUser  = await currentUser()
 
     if (clerkUser) {
       user = await db.user.create({

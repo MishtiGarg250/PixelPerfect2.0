@@ -163,8 +163,8 @@ async function TrackDetails({ trackId }: { trackId: string }) {
   )
 }
 
-export default async function TrackPage({ params }: { params: { id: string } }) {
-  const trackId = await params.id
+export default async function TrackPage({ params }: { params: Promise<{ id: string }> }) {
+  const {id} = await params
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -178,7 +178,7 @@ export default async function TrackPage({ params }: { params: { id: string } }) 
           </div>
         }
       >
-        <TrackDetails trackId={trackId} />
+        <TrackDetails trackId={id} />
       </Suspense>
     </div>
   )

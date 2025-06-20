@@ -38,7 +38,9 @@ export default async function CommentedArticlesPage() {
   // Create a unique list of articles (avoid duplicates if multiple comments exist)
   const uniqueArticlesMap = new Map()
   userComments.forEach((comment) => {
-    uniqueArticlesMap.set(comment.article.id, comment.article)
+    if (comment.article) {
+      uniqueArticlesMap.set(comment.article.id, comment.article)
+    }
   })
 
   const uniqueArticles = Array.from(uniqueArticlesMap.values())

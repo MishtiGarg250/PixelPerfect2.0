@@ -2,9 +2,12 @@ import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/auth"
 
-export async function GET(context: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { params } = context;
+    const { id } = await params
     const user = await getCurrentUser()
 
     if (!user || user.role !== "admin") {
@@ -12,7 +15,7 @@ export async function GET(context: { params: { id: string } }) {
     }
 
     const track = await db.track.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         modules: {
           include: {
