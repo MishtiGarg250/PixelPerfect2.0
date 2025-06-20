@@ -203,7 +203,7 @@ export default function CreateTrackPage() {
                               value={item.link}
                               onChange={(e) => updateItem(moduleIndex, itemIndex, "link", e.target.value)}
                               placeholder="https://example.com/resource"
-                              size="sm"
+                              
                             />
                           </div>
                         </div>
