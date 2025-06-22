@@ -6,9 +6,9 @@ import {studyplan} from "@/constants/index"
 
 const StudyPlan = () => {
   return (
-    <div className="py-20 bg-[#0d0d0d]" id="study-plans">
+    <div className="py-20 bg-[#0f0d13]" id="study-plans">
       <h1 className=" text-3xl md:text-5xl font-bold text-center text-white">
-  Your Ultimate <span className="text-[#b5b5f6]">Study Plans</span> & <span className="text-[#b5b5f6]">Roadmaps 🚀</span>
+  Your Ultimate <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">Study Plans</span> & <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">Roadmaps</span>  🚀
 </h1>
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-2">
         {studyplan.map((item) => (

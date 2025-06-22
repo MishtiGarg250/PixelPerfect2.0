@@ -4,31 +4,31 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="relative flex items-center flex-row bg-[#0d0d0d] h-full w-full " id="about-me">
-      <div className="h-screen flex flex-row items-center justify-center px-20 w-full z-[20]">
+    <div className="relative flex items-center flex-row bg-[#0f0d13] w-full " id="about-me">
+      <div className="py-20 flex flex-row items-center justify-center px-20 w-full z-[20]">
       <div className="w-screen flex flex-col gap-5 text-start">
-        <div className="Welcome-box mt-[-10px] pt-[10px] pb-[14px] pl-[12px] pr-[20px] border border-[#b5b5f6]/10">
-          <SparklesIcon className="text-[#f7bff4] mr-[10px] h-5 w-5" />
+        <div className="Welcome-box mt-[-10px] pt-[14px] pb-[14px] pl-[20px] pr-[24px] border border-[#b5b5f6]/10">
+          <SparklesIcon className="text-[#f7bff4] mr-[16px] h-5 w-5" />
           <h1 className="text-white text-[13px]">
-            Join the Revolution of Pixel Perfect coding!
+            Crafting Perfect Apps for your Daily Pixels 😉!
           </h1>
         </div>
 
-        <div className="flex flex-col gap-6 mt-6 text-6xl font-semibold text-white max-w-[700px] w-auto h-auto">
-          <span className="text-[36px]">
+        <div className="flex flex-col gap-6 mt-6 font-medium text-[#e6e1e9] max-w-[700px] w-auto h-auto">
+          <span className="text-[32px]">
             We are team
-            <span className="text-[60px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4]">
-              {" "}<br />
+            <span className="text-[64px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] leading-tight">
+              {" "}<br/>
               Pixel Perfect{" "}
             </span>
           </span>
         </div>
 
-        <p className="text-lg text-white/80 my-5 max-w-[1000px]">
-          We are a passionate team of developers, designers and innovators. We love to build, break, and innovate with cutting-edge technology.
+        <p className="text-lg text-[#e6e1e9] mb-10 max-w-[1000px]">
+          We specialize in creating stunning applications with meticulous attention to detail. Our team transforms your vision into pixel-perfect reality using cutting-edge technologies and modern design principles.
         </p>
-        <a className="py-2 button-primary text-center text-black cursor-pointer rounded-lg max-w-[200px]">
-          Learn More
+        <a href="#study-plans" className="py-3 px-6 button-primary text-center text-black cursor-pointer rounded-full w-fit">
+          Explore our Roadmaps
         </a>
       </div>
 

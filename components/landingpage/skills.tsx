@@ -5,9 +5,9 @@ import SkillDataProvider from '@/components/sub/skill-provider'
 
 const Skills = () => {
   return (
-    <section id="skills" style={{transform: "scale(0.9)"}} className="flex flex-col items-center justify-center gap-3 relative overflow-hidden py-20">
+    <section id="skills" className="flex flex-col items-center bg-[#0f0d13] justify-center gap-3 relative overflow-hidden px-8 py-8 md:py-20 md:px-20">
       <SkillText/>
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
+      <div className="flex flex-row justify-center flex-wrap mt-[24px] gap-4 md:gap-8 items-center">
       {Skill_data.map((image,index)=>(
         <SkillDataProvider
         key={index}
@@ -18,7 +18,6 @@ const Skills = () => {
 
         />
       ))}
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
       {skill_data2.map((image,index)=>(
         <SkillDataProvider
         key={index}
@@ -29,8 +28,6 @@ const Skills = () => {
 
         />
       ))}
-      </div>
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
       {skill_data3.map((image,index)=>(
         <SkillDataProvider
         key={index}
@@ -42,9 +39,6 @@ const Skills = () => {
         />
       ))}
       </div>
-      
-      </div>
-      
     </section>
   )
 }

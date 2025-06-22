@@ -12,37 +12,36 @@ export default function Navbar() {
   const [activeItem, setActiveItem] = useState("about")
 
   const navItems = [
-    { name: "About us", href: "/", id: "about" },
+    { name: "Home", href: "/", id: "about" },
   
-    { name: "Dashboard", href: "/dashboard", id: "dashboard" },
+    { name: "Roadmaps", href: "/dashboard", id: "dashboard" },
     { name: "Articles", href: "/articles", id: "articles" },
   
   ]
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-gradient-to-r from-black via-gray-900 to-black border-b border-gray-800 shadow-2xl backdrop-blur-sm">
+    <div className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#0f0d13] via-[#201f24] to-[#0f0d13] border-b border-[#48454e] shadow-2xl backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Left Section - Logo */}
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center space-x-3 group cursor-pointer">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#b5b5f6] via-purple-500 to-[#f7bff4] rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ease-out">
-                  <Image src="/logo.png" alt="PixelPerfect Logo" width={24} height={24} className="w-6 h-6" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg"></div>
+                  <Image src="/navbar.png" alt="PixelPerfect Logo" width={24} height={24} className="w-6 h-6 mr-2" />
               </div>
               <div className="hidden sm:block">
-                <span className="text-2xl font-extrabold tracking-tight group-hover:scale-105 transition-transform duration-300">
-                  <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text group-hover:from-[#c5c5f8] group-hover:to-[#f8cff6] transition-all duration-300">
-                    Pixel
+                <span className="text-[16px] tracking-tight group-hover:scale-105 transition-transform duration-300">
+                  <span style={{fontFamily: 'Goblin'}} className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text group-hover:from-[#c5c5f8] group-hover:to-[#f8cff6] transition-all duration-300">
+                    PIXEL
                   </span>
-                  <span className="text-white group-hover:text-gray-100 transition-colors duration-300"> Perfect</span>
+                  <span style={{fontFamily: 'Goblin'}} className="text-white group-hover:text-gray-100 transition-colors duration-300"> PERFECT</span>
                 </span>
-                
               </div>
             </Link>
+          </div>
 
+          {/* Right Section */}
+          <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => (
@@ -50,10 +49,10 @@ export default function Navbar() {
                   key={item.id}
                   href={item.href}
                   onClick={() => setActiveItem(item.id)}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out transform hover:scale-105 ${
+                  className={`relative px-5 py-2 rounded-full mr-3 text-sm font-medium transition-all duration-300 ease-out transform hover:scale-105 ${
                     activeItem === item.id
-                      ? "text-white bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] shadow-lg shadow-purple-500/25"
-                      : "text-gray-300 hover:text-white hover:bg-gray-800/50"
+                      ? "text-[#0f0d13] bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] shadow-lg shadow-purple-500/25"
+                      : "text-[#c9c4d0] hover:text-[#e6e1e9] hover:bg-[#201f24]"
                   }`}
                 >
                   <span className="relative z-10">{item.name}</span>
@@ -64,10 +63,6 @@ export default function Navbar() {
                 </Link>
               ))}
             </div>
-          </div>
-
-          {/* Right Section */}
-          <div className="flex items-center gap-4">
             {/* User Auth */}
             <SignedIn>
               <div className="relative">

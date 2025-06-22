@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 body{
-  background-color:black;
+  background-color: #0f0d13;
 }
 .cursive {
   font-family: "Cedarville Cursive", cursive;
@@ -20,6 +20,13 @@ body{
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@font-face {
+  font-family: 'Goblin';
+  src: url('/font.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 .Welcome-box {
   isolation: isolate;
@@ -38,12 +45,13 @@ body{
 }
 
 .button-primary {
-  background: #b5b5f6;
-  box-shadow: inset 0 0 12px #d0ddf6;
+  background: #cbbeff;
+  color: #32285e;
+  transition: all 0.2s ease-in-out;
 }
 .button-primary:hover {
-  background: #f7bff4;
-  box-shadow: inset 0 0 12px #d0ddf6;
+  background: #eeb8cb;
+  color: #492534;
 }
 
 @theme inline {

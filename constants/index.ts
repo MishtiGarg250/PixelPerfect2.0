@@ -53,8 +53,8 @@ export const skill_data2 = [
   {
     skill_name: "Java Script",
     Image: "/js.png",
-    width: 65,
-    height: 65,
+    width: 80,
+    height: 80,
   },
   {
     skill_name: "Tailwind Css",
@@ -106,8 +106,8 @@ export const skill_data3 = [
   {
     skill_name: "Mongo db",
     Image: "/mongodb.png",
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 80,
   },
 ]
 
