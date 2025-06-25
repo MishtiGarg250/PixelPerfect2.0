@@ -1,15 +1,15 @@
-import { Suspense } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArticleCard } from "@/components/article-card"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { db } from "@/lib/db"
-import { SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs"
+import { Suspense } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArticleCard } from "@/components/article-card";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { db } from "@/lib/db";
+import { ArrowUpRight } from "lucide-react"
 import Footer from "@/components/landingpage/blog-footer";
 import HeroSection from "@/components/landingpage/hero-section";
 import Skills from "@/components/landingpage/skills";
 import StudyPlan from "@/components/landingpage/study-plan";
-import Navbar from "@/components/landingpage/navbar"
+import Navbar from "@/components/landingpage/navbar";
 
 async function FeaturedArticles() {
   const articles = await db.articles.findMany({
@@ -29,49 +29,56 @@ async function FeaturedArticles() {
         },
       },
     },
-  })
+  });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex overflow-x-auto gap-4 pb-12 md:gap-8 md:pb-4 no-scrollbar md:px-12 px-6">
       {articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
+        <div key={article.id} className="flex-shrink-0 md:mt-4">
+          <ArticleCard article={article} />
+        </div>
       ))}
+      <div className="text-center h-screen/2 flex items-center justify-center">
+        <Button
+          asChild
+          variant="default"
+          size="lg"
+          className="button-primary rounded-full"
+        >
+          <Link href="/articles">More<ArrowUpRight /></Link>
+        </Button>
+          </div>
     </div>
-  )
+  );
 }
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <Navbar/>
-       <main>
-      <HeroSection />
-      <Skills/>
-      <StudyPlan/>
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#b5b5f6]">Latest Articles</h2>
-            <p className="text-xl  text-white">Stay updated with the latest in web development</p>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <Skills />
+        <StudyPlan />
+        <section className="md:py-16 py-2">
+          <div className="container mx-auto">
+            <div className="md:text-center mb-8 md:mb-12">
+              <h1 className="px-6 md:px-0 text-[30px] md:text-5xl font-bold md:text-center text-white">
+                Our Tech
+                <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">
+                  {" "}
+                  Articles
+                </span>
+                📑
+              </h1>
+            </div>
+            <Suspense fallback={<LoadingSpinner />}>
+              <FeaturedArticles />
+            </Suspense>
           </div>
-
-          <Suspense fallback={<LoadingSpinner />}>
-            <FeaturedArticles />
-          </Suspense>
-
-          <div className="text-center mt-12">
-            <Button asChild variant="outline" size="lg" className="button-primary">
-              <Link href="/articles">View All Articles</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-      <Footer />
-    </main>
-
-    
-      
+        </section>
+        <Footer />
+      </main>
     </div>
-  )
+  );
 }

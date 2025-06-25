@@ -14,7 +14,7 @@ export default function Navbar() {
   const navItems = [
     { name: "Home", href: "/", id: "about" },
   
-    { name: "Roadmaps", href: "/dashboard", id: "dashboard" },
+    { name: "Dashboard", href: "/dashboard", id: "dashboard" },
     { name: "Articles", href: "/articles", id: "articles" },
   
   ]
@@ -27,7 +27,7 @@ export default function Navbar() {
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center space-x-3 group cursor-pointer">
               <div className="relative">
-                  <Image src="/navbar.png" alt="PixelPerfect Logo" width={24} height={24} className="w-6 h-6 mr-2" />
+                  <Image src="/navbar.png" alt="PixelPerfect Logo" width={24} height={24} className="w-6 h-6 mr-2 ml-2 md:ml-0" />
               </div>
               <div className="hidden sm:block">
                 <span className="text-[16px] tracking-tight group-hover:scale-105 transition-transform duration-300">

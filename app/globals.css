@@ -45,13 +45,17 @@ body{
 }
 
 .button-primary {
-  background: #cbbeff;
-  color: #32285e;
+  background: #d2bcfd;
+  color: #38265c;
   transition: all 0.2s ease-in-out;
 }
 .button-primary:hover {
-  background: #eeb8cb;
-  color: #492534;
+  background: #f0b7c5;
+  color: #4a2530;
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 @theme inline {

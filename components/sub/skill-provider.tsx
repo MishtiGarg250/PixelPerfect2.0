@@ -12,7 +12,7 @@ interface Props {
 
 const SkillDataProvider = ({ src, width, height, index} : Props) => {
   return (
-    <div className="text-white bg-[#201f24] backdrop-blur-sm rounded-[12px] md:rounded-2xl p-[4px] md:p-1 w-[40px] sm:w-auto">
+    <div className="text-white bg-[#201f24] backdrop-blur-sm rounded-[10px] md:rounded-2xl p-[4px] md:p-1 w-[56px] md:w-auto">
       <Image
       src={src}
       width={width}
