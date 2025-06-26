@@ -1,17 +1,17 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/auth"
+import { type NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = await params
-    const user = await getCurrentUser()
+    const { id } = await params;
+    const user = await getCurrentUser();
 
     if (!user || user.role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const track = await db.track.findUnique({
@@ -23,15 +23,18 @@ export async function GET(
           },
         },
       },
-    })
+    });
 
     if (!track) {
-      return NextResponse.json({ error: "Track not found" }, { status: 404 })
+      return NextResponse.json({ error: "Track not found" }, { status: 404 });
     }
 
-    return NextResponse.json(track)
+    return NextResponse.json(track);
   } catch (error) {
-    console.error("Error fetching track:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    console.error("Error fetching track:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

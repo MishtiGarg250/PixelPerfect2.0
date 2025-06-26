@@ -17,7 +17,7 @@ export const PinContainer = ({
   containerClassName?: string;
 }) => {
   const [transform, setTransform] = useState(
-    "translate(-50%,-50%) rotateX(0deg)"
+    "translate(-50%,-50%) rotateX(0deg)",
   );
 
   const onMouseEnter = () => {
@@ -45,7 +45,7 @@ export const PinContainer = ({
           style={{
             transform: transform,
           }}
-          className="absolute left-1/2 p-4 top-1/2 flex justify-start items-start rounded-3xl bg-[#211f24] border-[#2b292f] group-hover/pin:border-white/[0.2] transition duration-500 overflow-hidden"
+          className="absolute left-1/2 p-4 top-1/2 flex justify-start items-start rounded-3xl bg-[#211f24] border-1 border-[#36343a] group-hover/pin:border-white/[0.2] transition duration-500 overflow-hidden"
         >
           <div className={cn("relative z-50", className)}>{children}</div>
         </div>
@@ -66,7 +66,7 @@ export const PinPerspective = ({
     <div className="pointer-events-none w-96 h-80 flex items-center justify-center opacity-0 group-hover/pin:opacity-100 z-[60] transition duration-500">
       <div className="w-full h-full -mt-7 flex-none inset-0">
         <div className="absolute top-0 inset-x-0 flex justify-center">
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-[#211f24] py-0.5 px-4 ring-1 ring-white/10">
+          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-[#211f24] py-0.5 px-4 ring-1 ring-[#36343a]">
             <span className="relative z-20 text-white text-xs inline-block py-0.5">
               {title}
             </span>

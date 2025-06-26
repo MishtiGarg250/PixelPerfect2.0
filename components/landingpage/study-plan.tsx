@@ -2,14 +2,22 @@
 
 import { ArrowRightIcon } from "lucide-react";
 import { PinContainer } from "@/components/sub/3d-pin";
-import {studyplan} from "@/constants/index"
+import { studyplan } from "@/constants/index";
 
 const StudyPlan = () => {
   return (
-    <div className="md:py-20 py-8 bg-[#0f0d13]" id="study-plans">
+    <div className="md:py-20 py-8 bg-[#141318]" id="study-plans">
       <h1 className="text-[30px] md:text-5xl px-6 md:px-0 font-bold md:text-center text-white">
-  Your Ultimate <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">Study Plans</span> & <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">Roadmaps</span>  🚀
-</h1>
+        Your Ultimate{" "}
+        <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">
+          Study Plans
+        </span>{" "}
+        &{" "}
+        <span className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-transparent bg-clip-text">
+          Roadmaps
+        </span>{" "}
+        🚀
+      </h1>
       <div className="flex flex-wrap items-center justify-center p-4 md:gap-18 md:mt-2">
         {studyplan.map((item) => (
           <div
@@ -25,9 +33,12 @@ const StudyPlan = () => {
                   className="relative overflow-hidden rounded-3xl aspect-video"
                   style={{ backgroundColor: "#151218" }}
                 >
-                  <img src={item.img} alt="bgimg" className=" border-[#36343a]"/>
+                  <img
+                    src={item.img}
+                    alt="bgimg"
+                    className="border-1 border-[#36343a]"
+                  />
                 </div>
-                
               </div>
 
               <h1 className="lg:text-[20px] md:text-xl text-base line-clamp-1 text-[#e7e0e8]">
@@ -49,7 +60,7 @@ const StudyPlan = () => {
                   {item.iconLists.map((icon, index) => (
                     <div
                       key={index}
-                      className="border border-[#49454e] rounded-full bg-[#151218] lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                      className="border border-[#36343a] rounded-full bg-[#141318] lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
                       style={{
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}

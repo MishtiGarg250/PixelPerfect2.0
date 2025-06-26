@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState, useTransition } from "react"
-import { Button } from "@/components/ui/button"
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,25 +12,28 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { deleteTrack } from "@/app/actions/tracks"
-import { Trash2, Loader2 } from "lucide-react"
+} from "@/components/ui/alert-dialog";
+import { deleteTrack } from "@/app/actions/tracks";
+import { Trash2, Loader2 } from "lucide-react";
 
 interface DeleteTrackButtonProps {
-  trackId: string
-  trackTitle: string
+  trackId: string;
+  trackTitle: string;
 }
 
-export function DeleteTrackButton({ trackId, trackTitle }: DeleteTrackButtonProps) {
-  const [isPending, startTransition] = useTransition()
-  const [open, setOpen] = useState(false)
+export function DeleteTrackButton({
+  trackId,
+  trackTitle,
+}: DeleteTrackButtonProps) {
+  const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteTrack(trackId)
-      setOpen(false)
-    })
-  }
+      await deleteTrack(trackId);
+      setOpen(false);
+    });
+  };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -43,8 +46,9 @@ export function DeleteTrackButton({ trackId, trackTitle }: DeleteTrackButtonProp
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Track</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete "{trackTitle}"? This will permanently delete the track, all its modules,
-            items, and user progress. This action cannot be undone.
+            Are you sure you want to delete "{trackTitle}"? This will
+            permanently delete the track, all its modules, items, and user
+            progress. This action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -56,5 +60,5 @@ export function DeleteTrackButton({ trackId, trackTitle }: DeleteTrackButtonProp
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

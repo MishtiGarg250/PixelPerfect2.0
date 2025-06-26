@@ -1,8 +1,8 @@
-import { Suspense } from "react"
-import { ArticleCard } from "@/components/article-card"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { db } from "@/lib/db"
-import { BookOpen, TrendingUp } from "lucide-react"
+import { Suspense } from "react";
+import { ArticleCardPage } from "@/components/article-card-page";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { db } from "@/lib/db";
+import { BookOpen, TrendingUp } from "lucide-react";
 
 async function ArticlesList() {
   const articles = await db.articles.findMany({
@@ -21,69 +21,68 @@ async function ArticlesList() {
         },
       },
     },
-  })
+  });
 
   if (articles.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
+      <div className="flex flex-col items-center justify-center text-center">
         <BookOpen className="h-16 w-16 text-gray-600 mb-4" />
-        <h3 className="text-xl font-semibold text-gray-300 mb-2">No articles yet</h3>
+        <h3 className="text-xl font-semibold text-gray-300 mb-2">
+          No articles yet
+        </h3>
         <p className="text-gray-500">Check back later for new content!</p>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 px-6 md:px-8 lg:grid-cols-4 gap-8">
       {articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
+        <div>
+          <ArticleCardPage key={article.id} article={article} />
+        </div>
       ))}
     </div>
-  )
+  );
 }
 
 export default function ArticlesPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#141318] text-[#e6e1e9]">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] h-2"></div>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="p-3 rounded-xl bg-gradient-to-r from-[#b5b5f6]/20 to-[#f7bff4]/20 border border-[#b5b5f6]/30">
-              <BookOpen className="h-8 w-8 text-[#b5b5f6]" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] bg-clip-text text-transparent">
-                All Articles
-              </h1>
-              <p className="text-gray-400 text-lg mt-2">
-                Explore our collection of articles on web development and technology.
-              </p>
-            </div>
+      <div className="p-6 pt-18 md:pt-8 md:p-8">
+        <div className="flex items-center gap-4 md:mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-[#b5b5f6] to-[#f7bff4] rounded-2xl flex items-center justify-center shadow-lg">
+            <BookOpen className="w-7 h-7 text-[#141318]" />
           </div>
-
-          {/* Stats Bar */}
-          <div className="flex items-center gap-6 p-4 bg-gray-900/50 rounded-lg border border-gray-800">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-[#f7bff4]" />
-              <span className="text-sm text-gray-300">Latest content updated daily</span>
-            </div>
+          <div>
+            <h1 className="text-[30px] md:text-5xl font-bold text-[#e6e1e9]">
+              All Articles
+            </h1>
+            <p className="text-[#cac4cf] text-sm md:text-[16px] md:mt-2">
+              Explore Articles from Pixel Perfect
+            </p>
           </div>
         </div>
-
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center py-16">
-              <LoadingSpinner />
-            </div>
-          }
-        >
-          <ArticlesList />
-        </Suspense>
       </div>
+
+      {/* Stats Bar */}
+      <div className="flex flex-col mb-8 md:flex-row mx-6 md:mx-8 md:items-center gap-3 md:gap-6 p-4 bg-[#211f24] rounded-2xl border border-[#36343a] backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-5 h-5 text-[#cebdfe]" />
+          <span className="text-[#cac4cf]">Latest content Updated Daily!</span>
+        </div>
+      </div>
+
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center py-16">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        <ArticlesList />
+      </Suspense>
     </div>
-  )
+  );
 }

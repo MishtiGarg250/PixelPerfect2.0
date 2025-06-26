@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArticleCard } from "@/components/article-card";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react";
 import Footer from "@/components/landingpage/blog-footer";
 import HeroSection from "@/components/landingpage/hero-section";
 import Skills from "@/components/landingpage/skills";
@@ -45,9 +45,12 @@ async function FeaturedArticles() {
           size="lg"
           className="button-primary rounded-full"
         >
-          <Link href="/articles">More<ArrowUpRight /></Link>
+          <Link href="/articles">
+            More
+            <ArrowUpRight />
+          </Link>
         </Button>
-          </div>
+      </div>
     </div>
   );
 }
@@ -60,7 +63,7 @@ export default function HomePage() {
         <HeroSection />
         <Skills />
         <StudyPlan />
-        <section className="md:py-16 py-2">
+        <section className="md:pb-16 py-2">
           <div className="container mx-auto">
             <div className="md:text-center mb-8 md:mb-12">
               <h1 className="px-6 md:px-0 text-[30px] md:text-5xl font-bold md:text-center text-white">

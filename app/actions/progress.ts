@@ -1,14 +1,17 @@
-"use server"
+"use server";
 
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/auth"
-import { revalidatePath } from "next/cache"
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
-export async function updateProgress(itemId: string, status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED") {
-  const user = await getCurrentUser()
+export async function updateProgress(
+  itemId: string,
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED",
+) {
+  const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   await db.progress.upsert({
@@ -26,9 +29,9 @@ export async function updateProgress(itemId: string, status: "NOT_STARTED" | "IN
       itemId: itemId,
       status: status,
     },
-  })
+  });
 
-  revalidatePath("/dashboard")
-  revalidatePath("/dashboard/tracks")
-  revalidatePath("/dashboard/track")
+  revalidatePath("/dashboard");
+  revalidatePath("/dashboard/tracks");
+  revalidatePath("/dashboard/track");
 }

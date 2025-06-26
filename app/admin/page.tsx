@@ -1,16 +1,24 @@
-import { Suspense } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { db } from "@/lib/db"
-import { FileText, BookOpen, Users, MessageCircle, TrendingUp, Activity } from "lucide-react"
+import { Suspense } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { db } from "@/lib/db";
+import {
+  FileText,
+  BookOpen,
+  Users,
+  MessageCircle,
+  TrendingUp,
+  Activity,
+} from "lucide-react";
 
 async function AdminStats() {
-  const [totalArticles, totalTracks, totalUsers, totalComments] = await Promise.all([
-    db.articles.count(),
-    db.track.count(),
-    db.user.count(),
-    db.comment.count(),
-  ])
+  const [totalArticles, totalTracks, totalUsers, totalComments] =
+    await Promise.all([
+      db.articles.count(),
+      db.track.count(),
+      db.user.count(),
+      db.comment.count(),
+    ]);
 
   const stats = [
     {
@@ -53,12 +61,12 @@ async function AdminStats() {
       change: "+18%",
       changeType: "increase" as const,
     },
-  ]
+  ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat) => {
-        const Icon = stat.icon
+        const Icon = stat.icon;
         return (
           <Card
             key={stat.title}
@@ -68,12 +76,16 @@ async function AdminStats() {
               <CardTitle className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
                 {stat.title}
               </CardTitle>
-              <div className={`p-2 rounded-lg ${stat.bgColor} transition-all duration-300 group-hover:scale-110`}>
+              <div
+                className={`p-2 rounded-lg ${stat.bgColor} transition-all duration-300 group-hover:scale-110`}
+              >
                 <Icon className={`h-5 w-5 ${stat.iconColor}`} />
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="text-3xl font-bold text-white">{stat.value.toLocaleString()}</div>
+              <div className="text-3xl font-bold text-white">
+                {stat.value.toLocaleString()}
+              </div>
               {/* <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
                   <TrendingUp className="h-3 w-3 text-green-400" />
@@ -83,13 +95,11 @@ async function AdminStats() {
               </div> */}
             </CardContent>
           </Card>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
-
-
 
 export default function AdminPage() {
   return (
@@ -108,7 +118,9 @@ export default function AdminPage() {
               <h1 className="text-4xl font-bold bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] bg-clip-text text-transparent">
                 Admin Overview
               </h1>
-              <p className="text-gray-400 text-lg mt-2">Manage your learning platform from here.</p>
+              <p className="text-gray-400 text-lg mt-2">
+                Manage your learning platform from here.
+              </p>
             </div>
           </div>
 
@@ -116,7 +128,9 @@ export default function AdminPage() {
           <div className="flex items-center gap-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-300">System Status: All services operational</span>
+              <span className="text-sm text-gray-300">
+                System Status: All services operational
+              </span>
             </div>
           </div>
         </div>
@@ -137,9 +151,7 @@ export default function AdminPage() {
         >
           <AdminStats />
         </Suspense>
-
-          
       </div>
     </div>
-  )
+  );
 }

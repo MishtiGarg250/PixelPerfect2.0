@@ -1,19 +1,23 @@
-"use client"
+"use client";
 
-import { useState, useTransition } from "react"
-import { Button } from "@/components/ui/button"
-import { updateProgress } from "@/app/actions/progress"
-import { Loader2 } from "lucide-react"
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import { updateProgress } from "@/app/actions/progress";
+import { Loader2 } from "lucide-react";
 
 interface ProgressToggleProps {
-  itemId: string
-  currentStatus: string
-  userId: string
+  itemId: string;
+  currentStatus: string;
+  userId: string;
 }
 
-export function ProgressToggle({ itemId, currentStatus, userId }: ProgressToggleProps) {
-  const [isPending, startTransition] = useTransition()
-  const [optimisticStatus, setOptimisticStatus] = useState(currentStatus)
+export function ProgressToggle({
+  itemId,
+  currentStatus,
+  userId,
+}: ProgressToggleProps) {
+  const [isPending, startTransition] = useTransition();
+  const [optimisticStatus, setOptimisticStatus] = useState(currentStatus);
 
   const handleStatusChange = () => {
     const nextStatus =
@@ -21,38 +25,38 @@ export function ProgressToggle({ itemId, currentStatus, userId }: ProgressToggle
         ? "IN_PROGRESS"
         : optimisticStatus === "IN_PROGRESS"
           ? "COMPLETED"
-          : "NOT_STARTED"
+          : "NOT_STARTED";
 
-    setOptimisticStatus(nextStatus)
+    setOptimisticStatus(nextStatus);
 
     startTransition(async () => {
-      await updateProgress(itemId, nextStatus as any)
-    })
-  }
+      await updateProgress(itemId, nextStatus as any);
+    });
+  };
 
   const getButtonText = () => {
     switch (optimisticStatus) {
       case "NOT_STARTED":
-        return "Start"
+        return "Start";
       case "IN_PROGRESS":
-        return "Complete"
+        return "Finish";
       case "COMPLETED":
-        return "Reset"
+        return "Reset";
       default:
-        return "Start"
+        return "Start";
     }
-  }
+  };
 
   return (
     <Button
       onClick={handleStatusChange}
       disabled={isPending}
       size="sm"
-      className="button-primary text-black"
+      className="button-primary bg-[#cebdfe] text-[#35275d] rounded-full py-5 px-6 border-0"
       variant={optimisticStatus === "COMPLETED" ? "default" : "outline"}
     >
       {isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
       {getButtonText()}
     </Button>
-  )
+  );
 }

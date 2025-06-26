@@ -3,5 +3,5 @@ export default function Page() {
     <div>
       <h1>Edit Track</h1>
     </div>
-  )
+  );
 }
