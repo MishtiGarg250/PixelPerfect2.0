@@ -6,7 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { UserSync } from "@/components/user-sync";
 
-const poppins = Poppins({ weight: ["400", "700"] });
+const poppins = Poppins({ weight: ["400", "700"],subsets:['latin'] });
 
 export const metadata: Metadata = {
   title: "PixelPerfect",

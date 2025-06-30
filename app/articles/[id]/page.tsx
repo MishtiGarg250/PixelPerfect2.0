@@ -67,7 +67,7 @@ async function ArticleContent({ articleId }: { articleId: string }) {
         <div className="relative aspect-video bg-gradient-to-br md:mt-[-24px] from-[#b5b5f6]/20 to-[#f7bff4]/20">
           {
             <Image
-              src={"/android-dark.jpg"}
+              src={article.featuredImage}
               alt={article.title}
               fill
               className="object-cover"

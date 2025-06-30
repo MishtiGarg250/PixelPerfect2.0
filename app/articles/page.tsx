@@ -38,9 +38,9 @@ async function ArticlesList() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 px-6 md:px-8 lg:grid-cols-4 gap-8">
       {articles.map((article) => (
-        <div>
+        
           <ArticleCardPage key={article.id} article={article} />
-        </div>
+        
       ))}
     </div>
   );
