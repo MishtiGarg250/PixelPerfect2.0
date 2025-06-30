@@ -1,5 +1,5 @@
-import { UserProfile } from "@clerk/nextjs"
-import { User, Settings, Sparkles } from "lucide-react"
+import { UserProfile } from "@clerk/nextjs";
+import { User, Settings, Sparkles } from "lucide-react";
 
 export default function MyProfile() {
   return (
@@ -19,7 +19,9 @@ export default function MyProfile() {
               <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
                 Manage Your Profile
               </h1>
-              <p className="text-gray-400 mt-1">Update your personal information and preferences</p>
+              <p className="text-gray-400 mt-1">
+                Update your personal information and preferences
+              </p>
             </div>
           </div>
 
@@ -31,7 +33,9 @@ export default function MyProfile() {
             </div>
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-[#f7bff4]" />
-              <span className="text-gray-400">Keep your information up to date</span>
+              <span className="text-gray-400">
+                Keep your information up to date
+              </span>
             </div>
           </div>
         </div>
@@ -67,7 +71,8 @@ export default function MyProfile() {
                 formFieldLabel: "text-white font-medium mb-2 text-sm",
                 formFieldInput:
                   "bg-gray-800/50 text-white border border-gray-600/50 rounded-xl px-4 py-3 focus:border-[#b5b5f6] focus:ring-2 focus:ring-[#b5b5f6]/20 transition-all duration-300 backdrop-blur-sm",
-                formFieldInputShowPasswordButton: "text-[#b5b5f6] hover:text-[#f7bff4]",
+                formFieldInputShowPasswordButton:
+                  "text-[#b5b5f6] hover:text-[#f7bff4]",
 
                 // Buttons
                 button:
@@ -82,7 +87,8 @@ export default function MyProfile() {
                   "bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] hover:from-[#c5c5f8] hover:to-[#f8cff6] text-black rounded-xl",
 
                 // Avatar
-                avatarBox: "ring-4 ring-[#b5b5f6]/20 hover:ring-[#b5b5f6]/40 transition-all duration-300",
+                avatarBox:
+                  "ring-4 ring-[#b5b5f6]/20 hover:ring-[#b5b5f6]/40 transition-all duration-300",
 
                 // Links
                 link: "text-[#b5b5f6] hover:text-[#f7bff4] transition-colors duration-300",
@@ -131,5 +137,5 @@ export default function MyProfile() {
         </div>
       </div>
     </div>
-  )
+  );
 }

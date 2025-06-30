@@ -1,37 +1,41 @@
-"use client"
+"use client";
 
-import { useState, useTransition } from "react"
-import { Button } from "@/components/ui/button"
-import { Heart } from "lucide-react"
-import { toggleLike } from "@/app/actions/likes"
-import { useAuth } from "@clerk/nextjs"
-import { SignInButton } from "@clerk/nextjs"
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
+import { toggleLike } from "@/app/actions/likes";
+import { useAuth } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/nextjs";
 
 interface LikeButtonProps {
-  articleId: string
-  initialLiked: boolean
-  initialCount: number
+  articleId: string;
+  initialLiked: boolean;
+  initialCount: number;
 }
 
-export function LikeButton({ articleId, initialLiked, initialCount }: LikeButtonProps) {
-  const { isSignedIn } = useAuth()
-  const [isLiked, setIsLiked] = useState(initialLiked)
-  const [likeCount, setLikeCount] = useState(initialCount)
-  const [isPending, startTransition] = useTransition()
+export function LikeButton({
+  articleId,
+  initialLiked,
+  initialCount,
+}: LikeButtonProps) {
+  const { isSignedIn } = useAuth();
+  const [isLiked, setIsLiked] = useState(initialLiked);
+  const [likeCount, setLikeCount] = useState(initialCount);
+  const [isPending, startTransition] = useTransition();
 
   const handleLike = () => {
-    if (!isSignedIn) return
+    if (!isSignedIn) return;
 
-    const newLikedState = !isLiked
-    const newCount = newLikedState ? likeCount + 1 : likeCount - 1
+    const newLikedState = !isLiked;
+    const newCount = newLikedState ? likeCount + 1 : likeCount - 1;
 
-    setIsLiked(newLikedState)
-    setLikeCount(newCount)
+    setIsLiked(newLikedState);
+    setLikeCount(newCount);
 
     startTransition(async () => {
-      await toggleLike(articleId)
-    })
-  }
+      await toggleLike(articleId);
+    });
+  };
 
   if (!isSignedIn) {
     return (
@@ -41,13 +45,19 @@ export function LikeButton({ articleId, initialLiked, initialCount }: LikeButton
           {initialCount} Likes
         </Button>
       </SignInButton>
-    )
+    );
   }
 
   return (
-    <Button className="button-primary" variant={isLiked ? "default" : "outline"} size="sm" onClick={handleLike} disabled={isPending}>
-      <Heart className={`w-4 h-4 mr-2 ${isLiked ? "fill-current" : ""}`} />
+    <Button
+      className="button-primary rounded-full py-5"
+      variant={isLiked ? "default" : "outline"}
+      size="lg"
+      onClick={handleLike}
+      disabled={isPending}
+    >
+      <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
       {likeCount} {likeCount === 1 ? "Like" : "Likes"}
     </Button>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-import { Suspense } from "react"
-import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/auth"
-import { Target } from "lucide-react"
+import { Suspense } from "react";
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
+import { Goal, Target } from "lucide-react";
 
 async function LearningTracks() {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
-  if (!user) return null
+  if (!user) return null;
 
   const tracks = await db.track.findMany({
     include: {
@@ -27,91 +27,105 @@ async function LearningTracks() {
         },
       },
     },
-  })
+  });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 px-6 md:px-8 lg:grid-cols-3 gap-6">
       {tracks.map((track) => {
-        const totalItems = track.modules.reduce((acc, module) => acc + module.items.length, 0)
+        const totalItems = track.modules.reduce(
+          (acc, module) => acc + module.items.length,
+          0,
+        );
         const completedItems = track.modules.reduce(
           (acc, module) =>
-            acc + module.items.filter((item) => item.progress.some((p) => p.status === "COMPLETED")).length,
+            acc +
+            module.items.filter((item) =>
+              item.progress.some((p) => p.status === "COMPLETED"),
+            ).length,
           0,
-        )
-        const progressPercentage = totalItems > 0 ? (completedItems / totalItems) * 100 : 0
+        );
+        const progressPercentage =
+          totalItems > 0 ? (completedItems / totalItems) * 100 : 0;
 
         return (
-          <Card key={track.id} className="hover:shadow-lg transition-shadow bg-gray-900 border-2 border-gray-800 shadow-md">
+          <Card
+            key={track.id}
+            className="hover:shadow-lg transition-shadow bg-[#211f24] border-1 border-[#36343a] shadow-md"
+          >
             <CardHeader>
-              <CardTitle className="text-white">{track.title}</CardTitle>
-              <p className="text-sm text-muted-foreground">{track.description}</p>
+              <CardTitle className="text-[#e6e1e9] text-lg">
+                {track.title}
+              </CardTitle>
+              <p className="text-sm text-[#cac4cf]">{track.description}</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-white">Progress</span>
-                  <span className="text-white text-xs font-medium">
+                <div className="flex justify-between text-sm mt-3 md:mt-0 mb-2">
+                  <span className="text-[#e6e1e9]">Progress</span>
+                  <span className="text-[#e6e1e9] text-xs font-medium">
                     {completedItems}/{totalItems}
                   </span>
                 </div>
-                <Progress  value={progressPercentage} />
+                <Progress value={progressPercentage} />
               </div>
-              <Button asChild className="w-full button-primary text-black">
-                <Link href={`/dashboard/track/${track.id}`}>Continue Learning</Link>
+              <Button
+                asChild
+                className="w-full button-primary text-[#492533] rounded-full mt-2 py-5"
+              >
+                <Link href={`/dashboard/track/${track.id}`}>
+                  Continue Learning
+                </Link>
               </Button>
             </CardContent>
           </Card>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
 export default function TracksPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#b5b5f6]/5 via-transparent to-[#f7bff4]/5"></div>
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-[#b5b5f6]/10 to-transparent"></div>
-      <div className="relative z-10 p-6 sm:p-8 lg:p-10">
-        {/* Header Section */}
-        <div className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] rounded-2xl flex items-center justify-center shadow-lg">
-              <Target className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                Choose Your Roadmap
-              </h1>
-              <p className="text-gray-400 mt-1">Select a learning track to continue your journey</p>
-            </div>
+    <div className="min-h-screen bg-[#141318]">
+      {/* Header Section */}
+      <div className="p-6 pt-18 md:pt-8 md:p-8">
+        <div className="flex items-center gap-4 md:mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-[#b5b5f6] to-[#f7bff4] rounded-2xl flex items-center justify-center shadow-lg">
+            <Goal className="w-7 h-7 text-[#141318]" />
           </div>
-        </div>
-
-        {/* Roadmap Cards */}
-        
- <Suspense fallback={<LoadingSpinner />}>
-        <LearningTracks />
-      </Suspense>
-        
-
-        {/* Bottom Section */}
-        <div className="mt-12 text-center">
-          <div className="p-8 bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-3xl border border-[#b5b5f6]/20 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-white mb-2">Need a custom roadmap?</h3>
-            <p className="text-gray-400 mb-6">Get personalized learning paths based on your goals</p>
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <Target className="w-4 h-4 text-[#b5b5f6]" />
-                <span>Goal-Based Learning</span>
-              </div>
-            </div>
+          <div>
+            <h1 className="text-[30px] md:text-5xl font-bold text-[#e6e1e9]">
+              Roadmaps
+            </h1>
+            <p className="text-[#cac4cf] text-sm md:text-[16px] md:mt-2">
+              Select your Preffered Roadmap
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Roadmap Cards */}
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <LearningTracks />
+      </Suspense>
+
+      {/* Bottom Section */}
+      <div className="mt-6 md:mt-12 md:text-center px-6 md:px-8">
+        <div className="p-6 md:p-8 bg-gradient-to-r bg-[#211f24] rounded-3xl border border-[#36343a] backdrop-blur-sm">
+          <h3 className="text-xl font-bold text-[#e6e1e9] mb-3">
+            Something not right in the Roadmap?
+          </h3>
+          <p className="text-[#cac4cf]">
+            Mail us at{" "}
+            <span className="text-[#efb8c9] font-bold">
+              pixelperfect317@gmail.com
+            </span>{" "}
+            and specify changes, improvements and additions that can be done to
+            our Roadmaps.
+          </p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-
-

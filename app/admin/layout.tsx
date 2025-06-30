@@ -1,15 +1,15 @@
-import type React from "react"
-import { getCurrentUser } from "@/lib/auth"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { FileText, BookOpen, BarChart3, ArrowLeft, Shield } from "lucide-react"
+import type React from "react";
+import { getCurrentUser } from "@/lib/auth";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { FileText, BookOpen, BarChart3, ArrowLeft, Shield } from "lucide-react";
 
 export default async function AdminLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
   // if (!user || user.role !== "admin") {
   //   redirect("/dashboard")
@@ -77,7 +77,9 @@ export default async function AdminLayout({
               {user && (
                 <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-gray-800/50 rounded-lg border border-gray-700">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-sm text-gray-300">Admin: {user.name}</span>
+                  <span className="text-sm text-gray-300">
+                    Admin: {user.name}
+                  </span>
                 </div>
               )}
 
@@ -138,13 +140,17 @@ export default async function AdminLayout({
       </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{children}</main>
+      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        {children}
+      </main>
 
       {/* Footer */}
       <footer className="border-t border-gray-800 bg-gray-900/50 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-400">Admin Panel - Manage your learning platform</p>
+            <p className="text-sm text-gray-400">
+              Admin Panel - Manage your learning platform
+            </p>
             <div className="flex items-center gap-4 text-xs text-gray-500">
               <span>Version 1.0</span>
               <span>•</span>
@@ -154,5 +160,5 @@ export default async function AdminLayout({
         </div>
       </footer>
     </div>
-  )
+  );
 }

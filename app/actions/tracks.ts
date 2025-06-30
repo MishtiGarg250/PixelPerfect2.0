@@ -1,27 +1,27 @@
-"use server"
+"use server";
 
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/auth"
-import { revalidatePath } from "next/cache"
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 interface RoadmapItem {
-  title: string
-  link: string
+  title: string;
+  link: string;
 }
 
 interface Module {
-  title: string
-  items: RoadmapItem[]
+  title: string;
+  items: RoadmapItem[];
 }
 
 interface CreateTrackData {
-  title: string
-  description: string
-  modules: Module[]
+  title: string;
+  description: string;
+  modules: Module[];
 }
 
 export async function createTrack(data: CreateTrackData) {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
   // if (!user || user.role !== "admin") {
   //   throw new Error("Unauthorized")
@@ -44,18 +44,18 @@ export async function createTrack(data: CreateTrackData) {
           })),
         },
       },
-    })
+    });
 
-    revalidatePath("/dashboard/tracks")
-    revalidatePath("/admin/tracks")
+    revalidatePath("/dashboard/tracks");
+    revalidatePath("/admin/tracks");
   } catch (error) {
-    console.error("Error creating track:", error)
-    throw new Error("Failed to create track")
+    console.error("Error creating track:", error);
+    throw new Error("Failed to create track");
   }
 }
 
 export async function updateTrack(data: CreateTrackData & { id: string }) {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
   // if (!user || user.role !== "admin") {
   //   throw new Error("Unauthorized")
@@ -69,13 +69,13 @@ export async function updateTrack(data: CreateTrackData & { id: string }) {
           trackId: data.id,
         },
       },
-    })
+    });
 
     await db.module.deleteMany({
       where: {
         trackId: data.id,
       },
-    })
+    });
 
     // Update track and create new modules/items
     await db.track.update({
@@ -95,21 +95,21 @@ export async function updateTrack(data: CreateTrackData & { id: string }) {
           })),
         },
       },
-    })
+    });
 
-    revalidatePath("/dashboard/tracks")
-    revalidatePath("/admin/tracks")
+    revalidatePath("/dashboard/tracks");
+    revalidatePath("/admin/tracks");
   } catch (error) {
-    console.error("Error updating track:", error)
-    throw new Error("Failed to update track")
+    console.error("Error updating track:", error);
+    throw new Error("Failed to update track");
   }
 }
 
 export async function deleteTrack(trackId: string) {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
   if (!user || user.role !== "admin") {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   try {
@@ -123,7 +123,7 @@ export async function deleteTrack(trackId: string) {
           },
         },
       },
-    })
+    });
 
     // 2. Delete all roadmap items
     await db.roadmapItem.deleteMany({
@@ -132,26 +132,26 @@ export async function deleteTrack(trackId: string) {
           trackId: trackId,
         },
       },
-    })
+    });
 
     // 3. Delete all modules
     await db.module.deleteMany({
       where: {
         trackId: trackId,
       },
-    })
+    });
 
     // 4. Finally delete the track
     await db.track.delete({
       where: {
         id: trackId,
       },
-    })
+    });
 
-    revalidatePath("/dashboard/tracks")
-    revalidatePath("/admin/tracks")
+    revalidatePath("/dashboard/tracks");
+    revalidatePath("/admin/tracks");
   } catch (error) {
-    console.error("Error deleting track:", error)
-    throw new Error("Failed to delete track")
+    console.error("Error deleting track:", error);
+    throw new Error("Failed to delete track");
   }
 }

@@ -1,14 +1,14 @@
-"use server"
+"use server";
 
-import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/auth"
-import { revalidatePath } from "next/cache"
+import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export async function addComment(articleId: string, body: string) {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
 
   if (!user) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   await db.comment.create({
@@ -17,7 +17,7 @@ export async function addComment(articleId: string, body: string) {
       articleId,
       userId: user.id,
     },
-  })
+  });
 
-  revalidatePath(`/articles/${articleId}`)
+  revalidatePath(`/articles/${articleId}`);
 }

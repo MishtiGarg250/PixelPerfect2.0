@@ -1,4 +1,3 @@
-
 export const Skill_data = [
   {
     skill_name: "java",
@@ -42,7 +41,7 @@ export const Skill_data = [
     width: 80,
     height: 80,
   },
-]
+];
 export const skill_data2 = [
   {
     skill_name: "Css",
@@ -53,8 +52,8 @@ export const skill_data2 = [
   {
     skill_name: "Java Script",
     Image: "/js.png",
-    width: 65,
-    height: 65,
+    width: 80,
+    height: 80,
   },
   {
     skill_name: "Tailwind Css",
@@ -75,7 +74,7 @@ export const skill_data2 = [
     width: 80,
     height: 80,
   },
-]
+];
 
 export const skill_data3 = [
   {
@@ -106,11 +105,10 @@ export const skill_data3 = [
   {
     skill_name: "Mongo db",
     Image: "/mongodb.png",
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 80,
   },
-]
-
+];
 
 export const Socials = [
   {
@@ -127,165 +125,157 @@ export const Socials = [
   },
 ];
 
-
-
-
-
-
-
-
 export const studyplan = [
   {
     id: 1,
-    t_id: 'web',
-    title: "Full Stack Web Development Roadmap",
+    t_id: "web",
+    title: "MERN Stack Development",
     des: "Web development is divided into frontend, backend, and full-stack development. Frontend development involves creating user interfaces using HTML, CSS, and JavaScript, along with frameworks like React.js or Next.js for better functionality",
-    img: "https://miro.medium.com/v2/resize:fit:1200/1*IYQnAWgsoxvm8XPP2Rmzbg.jpeg",
-    iconLists: ["/js.png", "/express-js.png", "/html-5.png", "/css-3.png", "/reactjs.png"],
+    img: "/web_poster.png",
+    iconLists: [
+      "/js.png",
+      "/express-js.png",
+      "/html-5.png",
+      "/css-3.png",
+      "/reactjs.png",
+    ],
     link: "/ui.earth.com",
   },
   {
     id: 2,
-    t_id:'cmc4ga4bv001vmcrs8f6a0t68',
-    title: "Full Stack Android Development Roadmap",
+    t_id: "cmc4ga4bv001vmcrs8f6a0t68",
+    title: "Android Developer's Roadmap",
     des: "Android is the most widely used mobile operating system, powering millions of devices worldwide. Whether you want to build your first mobile app or enhance your existing development skills, learning Android development is an excellent choice.",
-    img: "https://img.freepik.com/free-vector/app-development-banner_33099-1720.jpg",
-    iconLists: ["/java.png", "/figma.png", "/android.png", "/kotlin.png", "illustrator.png"],
+    img: "/android_poster.png",
+    iconLists: ["/kotlin.png", "/jc_icon.png", "/android.png", "java.png"],
     link: "/ui.yoom.com",
   },
   {
     id: 3,
-    t_id:'cp',
-    title: "Learn about competitive Programming",
+    t_id: "cp",
+    title: "Competitive Programming",
     des: "Competitive programming enhances problem-solving skills by focusing on data structures and algorithms. Beginners should start with arrays, strings, sorting, searching, and recursion, then move on to advanced topics like dynamic programming (DP), graph algorithms (DFS, BFS, Dijkstra), and bitwise operations.",
-    img: "https://cdn.hashnode.com/res/hashnode/image/upload/v1657646901458/n20I8bm8R.png",
-    iconLists: ["/c++.png", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
+    img: "/cp_poster.png",
+    iconLists: ["/c++.png"],
     link: "/ui.aiimg.com",
   },
-
 ];
 
 export const AndroidDev = [
   {
-    "title": "Month 1-2: Learn Kotlin/Java & Basics of Android",
-    "content": [
+    title: "Month 1-2: Learn Kotlin/Java & Basics of Android",
+    content: [
       "Basic programming knowledge (preferably in Java or Kotlin)",
       "Understanding of Object-Oriented Programming (OOP)",
-      "Activity and Fragment Lifecycle"
-    ]
+      "Activity and Fragment Lifecycle",
+    ],
   },
   {
-    "title": "Month 3-4: Core Android Development",
-    "content": [
+    title: "Month 3-4: Core Android Development",
+    content: [
       "RecyclerView and ListView",
       "Intent and Navigation",
-      "Networking with Retrofit and Volley"
-    ]
+      "Networking with Retrofit and Volley",
+    ],
   },
   {
-    "title": "Month 5-6: Advanced Android Concepts",
-    "content": [
+    title: "Month 5-6: Advanced Android Concepts",
+    content: [
       "Jetpack Components (ViewModel, LiveData, Room)",
-      "Dependency Injection (Dagger, Hilt)"
-    ]
+      "Dependency Injection (Dagger, Hilt)",
+    ],
   },
   {
-    "title": "Month 7-8: Building & Deploying Apps",
-    "content": [
+    title: "Month 7-8: Building & Deploying Apps",
+    content: [
       "Develop 2-3 real-world apps",
       "Google Play Store Deployment",
-      "Monetization and Ad Integration"
-    ]
-  }
-]
-
+      "Monetization and Ad Integration",
+    ],
+  },
+];
 
 export const WebdevTimeline = [
   {
-    "title": "Month 1-2: Frontend Basics",
-    "content": [
+    title: "Month 1-2: Frontend Basics",
+    content: [
       "HTML5, CSS3, and JavaScript ES6+",
-      "CSS frameworks: Bootstrap, Tailwind CSS"
-    ]
+      "CSS frameworks: Bootstrap, Tailwind CSS",
+    ],
   },
   {
-    "title": "Month 3-4: Frontend Frameworks",
-    "content": [
+    title: "Month 3-4: Frontend Frameworks",
+    content: [
       "JavaScript frameworks: React.js, Vue.js, Angular",
-      "State management: Redux, Context API"
-    ]
+      "State management: Redux, Context API",
+    ],
   },
   {
-    "title": "Month 5-6: Backend Basics",
-    "content": [
+    title: "Month 5-6: Backend Basics",
+    content: [
       "Node.js with Express.js or Django/Flask for Python",
-      "Databases: SQL (MySQL, PostgreSQL) & NoSQL (MongoDB, Firebase)"
-    ]
+      "Databases: SQL (MySQL, PostgreSQL) & NoSQL (MongoDB, Firebase)",
+    ],
   },
   {
-    "title": "Month 7-8: Full-Stack Development",
-    "content": [
+    title: "Month 7-8: Full-Stack Development",
+    content: [
       "Integrating frontend and backend",
       "RESTful APIs and GraphQL",
-      "WebSockets for real-time communication"
-    ]
+      "WebSockets for real-time communication",
+    ],
   },
   {
-    "title": "Month 9-10: Projects & Deployment",
-    "content": [
+    title: "Month 9-10: Projects & Deployment",
+    content: [
       "Build 3-4 full-stack projects",
       "Deploy using Netlify, Vercel, or Heroku",
-      "Contribute to open-source projects"
-    ]
-  }
-]
+      "Contribute to open-source projects",
+    ],
+  },
+];
 
 export const CPTimeline = [
   {
-    "title": "Prerequisites",
-    "content": [
+    title: "Prerequisites",
+    content: [
       "Basic programming knowledge",
       "Understanding of loops, functions, and conditions",
-      "Familiarity with debugging techniques"
-    ]
+      "Familiarity with debugging techniques",
+    ],
   },
   {
-    "title": "Choose a Programming Language",
-    "content": [
+    title: "Choose a Programming Language",
+    content: [
       "C++ (Preferred for its STL and speed)",
       "Java (Good for object-oriented approach)",
-      "Python (Beginner-friendly, but slower in execution)"
-    ]
+      "Python (Beginner-friendly, but slower in execution)",
+    ],
   },
   {
-    "title": "Basic Problem-Solving",
-    "content": [
+    title: "Basic Problem-Solving",
+    content: [
       "Input/Output handling",
       "Loops and conditionals",
       "Arrays and Strings",
-      "Functions and Recursion"
-    ]
+      "Functions and Recursion",
+    ],
   },
   {
-    "title": "Data Structures",
-    "content": [
-      "Arrays & Lists",
-      "Stacks & Queues",
-      "Linked Lists",
-      "Strings"
-    ]
+    title: "Data Structures",
+    content: ["Arrays & Lists", "Stacks & Queues", "Linked Lists", "Strings"],
   },
   {
-    "title": "Advanced Data Structures",
-    "content": [
+    title: "Advanced Data Structures",
+    content: [
       "Trees: BST, Heaps, Segment Trees, Fenwick Trees",
       "Graphs: DFS, BFS, Shortest Path (Dijkstra, Bellman-Ford), MST (Kruskal, Prim)",
-      "Hashing: Hash Tables, Hash Maps"
-    ]
+      "Hashing: Hash Tables, Hash Maps",
+    ],
   },
   {
-    "title": "Algorithms",
-    "content": [
+    title: "Algorithms",
+    content: [
       "Sorting: Merge Sort, Quick Sort, Heap Sort",
       "Searching: Binary Search, Ternary Search",
       "Divide and Conquer: Binary Search on Answers, Recursive problem-solving",
@@ -293,43 +283,43 @@ export const CPTimeline = [
       "Graph Algorithms: Dijkstra, Bellman-Ford, Kruskal’s Algorithm, Prim’s Algorithm",
       "Greedy Algorithms: Fractional Knapsack, Activity Selection Problem",
       "Backtracking: N-Queens Problem, Sudoku Solver",
-      "String Algorithms: KMP, Rabin-Karp"
-    ]
+      "String Algorithms: KMP, Rabin-Karp",
+    ],
   },
   {
-    "title": "Advanced Topics",
-    "content": [
+    title: "Advanced Topics",
+    content: [
       "Computational Geometry: Convex Hull, Line Intersection",
       "Bit Manipulation: XOR tricks, Bit masking",
       "Segment Trees & Binary Indexed Trees: Range queries (sum, min, max)",
-      "Disjoint Set Union (DSU): Union-Find, Kruskal’s Algorithm"
-    ]
+      "Disjoint Set Union (DSU): Union-Find, Kruskal’s Algorithm",
+    ],
   },
   {
-    "title": "Competitive Programming Platforms",
-    "content": [
+    title: "Competitive Programming Platforms",
+    content: [
       "Codeforces – Regular contests",
       "LeetCode – Algorithmic challenges",
       "CodeChef – Monthly challenges",
-      "AtCoder – Fast-paced contests"
-    ]
+      "AtCoder – Fast-paced contests",
+    ],
   },
   {
-    "title": "Participate in Contests",
-    "content": [
+    title: "Participate in Contests",
+    content: [
       "ICPC (International Collegiate Programming Contest)",
       "Google Kick Start",
       "Facebook Hacker Cup",
-      "LeetCode Weekly Contests"
-    ]
+      "LeetCode Weekly Contests",
+    ],
   },
   {
-    "title": "Final Step: Build Your Portfolio",
-    "content": [
+    title: "Final Step: Build Your Portfolio",
+    content: [
       "Solve 500+ problems on different platforms",
       "Create a GitHub repo with problem solutions",
       "Contribute to open-source algorithm projects",
-      "Write blogs about problem-solving techniques"
-    ]
-  }
-]
+      "Write blogs about problem-solving techniques",
+    ],
+  },
+];

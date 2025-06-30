@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useUser } from "@clerk/nextjs"
-import { useEffect } from "react"
+import { useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 export function UserSync() {
-  const { user, isLoaded } = useUser()
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -17,12 +17,13 @@ export function UserSync() {
         body: JSON.stringify({
           clerkUserId: user.id,
           email: user.emailAddresses[0]?.emailAddress,
-          name: `${user.firstName || ""} ${user.lastName || ""}`.trim() || "User",
+          name:
+            `${user.firstName || ""} ${user.lastName || ""}`.trim() || "User",
           imageUrl: user.imageUrl,
         }),
-      }).catch(console.error)
+      }).catch(console.error);
     }
-  }, [user, isLoaded])
+  }, [user, isLoaded]);
 
-  return null
+  return null;
 }
