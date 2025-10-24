@@ -25,7 +25,7 @@ export default async function CommentedArticlesPage() {
   if (!user) return redirect("/sign-in");
 
   // Get comments by user and fetch the associated article and author
-  const userComments = await db.like.findMany({
+  const userComments = await db.comment.findMany({
     where: { userId: user.id },
     include: {
       article: {

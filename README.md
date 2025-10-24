@@ -2,7 +2,7 @@
 
 PixelPerfect is a modern, full-stack web application built with Next.js, TypeScript, and Tailwind CSS. It combines a feature-rich blogging platform with a structured learning track system, designed for both content creators and learners. The platform uses Clerk for robust authentication and Prisma with a PostgreSQL database for data management.
 
-#Link to the website : "https://pixel-perfect-1.vercel.app/"
+#Link to the website : https://pixel-perfect-1.vercel.app/
 
 ## ✨ Features
 

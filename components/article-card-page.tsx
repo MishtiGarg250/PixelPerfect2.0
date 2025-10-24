@@ -35,7 +35,7 @@ export function ArticleCardPage({ article }: ArticleCardProps) {
         {/* Article Image */}
         <div className="relative rounded-t-3xl aspect-video overflow-hidden mt-[-24px]">
           <Image
-            src="/android-dark.jpg"
+            src={article.featuredImage || " "}
             alt={article.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
