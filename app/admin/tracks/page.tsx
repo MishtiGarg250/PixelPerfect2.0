@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
 import { Plus, Edit, Users } from "lucide-react";
+import { DeleteTrackButton } from "@/components/delete-track-button";
 
 async function TracksList() {
   const tracks = await db.track.findMany({
@@ -26,7 +27,7 @@ async function TracksList() {
   return (
     <div className="space-y-4">
       {tracks.length === 0 ? (
-        <Card>
+        <Card className="bg-gray-900/50 border-gray-800">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <p className="text-muted-foreground mb-4">
               No learning tracks found.
@@ -43,20 +44,23 @@ async function TracksList() {
         tracks.map((track) => {
           const totalItems = track.modules.reduce(
             (acc, module) => acc + module.items.length,
-            0,
+            0
           );
           const totalProgress = track.modules.reduce(
             (acc, module) =>
               acc +
               module.items.reduce(
                 (itemAcc, item) => itemAcc + item.progress.length,
-                0,
+                0
               ),
-            0,
+            0
           );
 
           return (
-            <Card key={track.id} className="bg-gray-900/50 border">
+            <Card
+              key={track.id}
+              className="bg-gray-900/50 border border-gray-800 backdrop-blur-sm"
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
@@ -85,18 +89,21 @@ async function TracksList() {
                         <Edit className="w-4 h-4" />
                       </Link>
                     </Button>
-                    {/* <DeleteTrackButton trackId={track.id} trackTitle={track.title} /> */}
+                    <DeleteTrackButton
+                      trackId={track.id}
+                      trackTitle={track.title}
+                    />
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <h4 className="font-medium text-sm">Modules:</h4>
+                  <h4 className="font-medium text-sm text-gray-300">Modules:</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {track.modules.map((module) => (
                       <div
                         key={module.id}
-                        className="bg-gray-900/50 text-sm p-2  rounded"
+                        className="bg-gray-900/50 text-sm p-2 rounded border border-gray-800"
                       >
                         <span className="text-white font-medium">
                           {module.title}

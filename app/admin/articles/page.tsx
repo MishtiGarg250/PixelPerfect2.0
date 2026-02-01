@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Plus, Edit } from "lucide-react";
+import { DeleteArticleButton } from "@/components/delete-article-button";
 
 async function ArticlesList() {
   const articles = await db.articles.findMany({
@@ -25,11 +26,27 @@ async function ArticlesList() {
     },
   });
 
+  if (articles.length === 0) {
+    return (
+      <Card className="bg-gray-900/50 border border-gray-800">
+        <CardContent className="flex flex-col items-center justify-center py-12">
+          <p className="text-muted-foreground mb-4">No articles found.</p>
+          <Button className="button-primary" asChild>
+            <Link href="/admin/articles/create">
+              <Plus className="w-4 h-4 mr-2" />
+              Create Your First Article
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {articles.map((article) => (
         <Card
-          className="bg-gray-900/50 border border-gray-900 backdrop-blur-sm"
+          className="bg-gray-900/50 border border-gray-800 backdrop-blur-sm"
           key={article.id}
         >
           <CardHeader>
@@ -48,12 +65,15 @@ async function ArticlesList() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  <Edit className="w-4 h-4" />
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/admin/articles/${article.id}/edit`}>
+                    <Edit className="w-4 h-4" />
+                  </Link>
                 </Button>
-                <Button variant="outline" size="sm">
-                  <Trash2 className="w-4 h-4" />
-                </Button>
+                <DeleteArticleButton
+                  articleId={article.id}
+                  articleTitle={article.title}
+                />
               </div>
             </div>
           </CardHeader>
