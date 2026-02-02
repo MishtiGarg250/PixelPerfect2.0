@@ -244,7 +244,7 @@ export default function EditTrackPage() {
 
             <Separator className="bg-gray-800" />
 
-            {/* Modules */}
+          
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-white">Modules</h3>
@@ -252,7 +252,7 @@ export default function EditTrackPage() {
                   type="button"
                   variant="outline"
                   onClick={addModule}
-                  className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-[#b5b5f6]/50"
+                  className="border-gray-600 text-gray-300 bg-transparent admin-btn-outline hover:bg-gray-800/20"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Module
@@ -272,10 +272,10 @@ export default function EditTrackPage() {
                       {modules.length > 1 && (
                         <Button
                           type="button"
-                          variant="outline"
+                          variant="ghost"
                           size="sm"
                           onClick={() => removeModule(moduleIndex)}
-                          className="text-red-400 hover:text-red-300 hover:bg-red-500/10 hover:border-red-500/50"
+                          className="admin-delete-btn"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -306,7 +306,7 @@ export default function EditTrackPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => addItem(moduleIndex)}
-                          className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                          className="border-gray-600 text-gray-300 bg-transparent admin-btn-outline hover:bg-gray-800/20"
                         >
                           <Plus className="w-4 h-4 mr-2" />
                           Add Item
@@ -349,7 +349,7 @@ export default function EditTrackPage() {
                                   onClick={() =>
                                     removeItem(moduleIndex, itemIndex)
                                   }
-                                  className="text-red-400 hover:text-red-300 hover:bg-red-500/10 h-6 w-6 p-0"
+                                  className="admin-delete-btn"
                                 >
                                   <Trash2 className="w-3 h-3" />
                                 </Button>
@@ -392,7 +392,7 @@ export default function EditTrackPage() {
                 type="button"
                 variant="outline"
                 onClick={() => router.back()}
-                className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800/50 hover:text-white hover:border-[#b5b5f6]/50"
+                className="border-red-600 text-red-400 hover:bg-red-600/10"
               >
                 Cancel
               </Button>

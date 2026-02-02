@@ -111,18 +111,18 @@ export default function CreateTrackPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle>Create New Learning Track</CardTitle>
+      <Card className="bg-gray-900/60 border border-gray-800 shadow-2xl">
+        <CardHeader className="border-b border-gray-800">
+          <CardTitle className="text-white">Create New Learning Track</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="py-6">
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Track Basic Info */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Track Information</h3>
+              <h3 className="text-lg font-semibold text-white">Track Information</h3>
               <div className="grid grid-cols-1 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Track Title</Label>
+                  <Label htmlFor="title" className="text-gray-300">Track Title</Label>
                   <Input
                     id="title"
                     value={trackData.title}
@@ -134,10 +134,11 @@ export default function CreateTrackPage() {
                     }
                     placeholder="e.g., Frontend Development"
                     required
+                    className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-[#b5b5f6]/50 focus:ring-[#b5b5f6]/20"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description" className="text-gray-300">Description</Label>
                   <Textarea
                     id="description"
                     value={trackData.description}
@@ -149,6 +150,7 @@ export default function CreateTrackPage() {
                     }
                     placeholder="Describe what this learning track covers..."
                     required
+                    className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-[#b5b5f6]/50 focus:ring-[#b5b5f6]/20"
                   />
                 </div>
               </div>
@@ -159,25 +161,29 @@ export default function CreateTrackPage() {
             {/* Modules */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Modules</h3>
-                <Button type="button" variant="outline" onClick={addModule}>
+                <h3 className="text-lg font-semibold text-white">Modules</h3>
+                <Button type="button" variant="outline" onClick={addModule} className="border-gray-600 text-gray-300 bg-transparent admin-btn-outline hover:bg-gray-800/20">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Module
                 </Button>
               </div>
 
               {modules.map((module, moduleIndex) => (
-                <Card key={moduleIndex} className="border-2">
+                <Card key={moduleIndex} className="bg-gray-900/60 border border-gray-800 hover:bg-gray-900/65 transition-colors">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-base">
-                        Module {moduleIndex + 1}
-                      </CardTitle>
+                      <div className="flex items-center gap-3">
+                        <div className="px-2 py-1 rounded-md bg-gradient-to-r from-[#b5b5f6]/10 to-[#f7bff4]/10 text-xs text-white font-semibold">
+                          Module {moduleIndex + 1}
+                        </div>
+                      </div>
+
                       {modules.length > 1 && (
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
+                          className="border-gray-600 text-gray-300"
                           onClick={() => removeModule(moduleIndex)}
                         >
                           <Trash2 className="w-4 h-4" />
@@ -187,7 +193,7 @@ export default function CreateTrackPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <Label>Module Title</Label>
+                      <Label className="text-gray-300">Module Title</Label>
                       <Input
                         value={module.title}
                         onChange={(e) =>
@@ -195,18 +201,20 @@ export default function CreateTrackPage() {
                         }
                         placeholder="e.g., HTML & CSS Basics"
                         required
+                        className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-[#b5b5f6]/50 focus:ring-[#b5b5f6]/20"
                       />
                     </div>
 
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <Label className="text-sm font-medium">
+                        <Label className="text-sm font-medium text-gray-300">
                           Learning Items
                         </Label>
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
+                          className="border-gray-600 text-gray-300 bg-transparent admin-btn-outline hover:bg-gray-800/20"
                           onClick={() => addItem(moduleIndex)}
                         >
                           <Plus className="w-4 h-4 mr-2" />
@@ -217,10 +225,10 @@ export default function CreateTrackPage() {
                       {module.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3 border rounded-lg"
+                          className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 bg-gray-800/40 border border-gray-700 rounded-lg"
                         >
                           <div className="space-y-2">
-                            <Label className="text-xs">Item Title</Label>
+                            <Label className="text-xs text-gray-300">Item Title</Label>
                             <Input
                               value={item.title}
                               onChange={(e) =>
@@ -232,11 +240,12 @@ export default function CreateTrackPage() {
                                 )
                               }
                               placeholder="e.g., HTML Semantics"
+                              className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-[#b5b5f6]/50 focus:ring-[#b5b5f6]/20"
                             />
                           </div>
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <Label className="text-xs">
+                              <Label className="text-xs text-gray-300">
                                 Resource Link (Optional)
                               </Label>
                               {module.items.length > 1 && (
@@ -244,6 +253,7 @@ export default function CreateTrackPage() {
                                   type="button"
                                   variant="ghost"
                                   size="sm"
+                                  className="admin-delete-btn"
                                   onClick={() =>
                                     removeItem(moduleIndex, itemIndex)
                                   }
@@ -263,6 +273,7 @@ export default function CreateTrackPage() {
                                 )
                               }
                               placeholder="https://example.com/resource"
+                              className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:border-[#b5b5f6]/50 focus:ring-[#b5b5f6]/20"
                             />
                           </div>
                         </div>
@@ -274,13 +285,14 @@ export default function CreateTrackPage() {
             </div>
 
             <div className="flex gap-4 pt-6">
-              <Button type="submit" disabled={isPending}>
+              <Button type="submit" disabled={isPending} className="button-admin">
                 {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 Create Track
               </Button>
               <Button
                 type="button"
-                variant="outline"
+          
+               className="border-red-600 text-red-400 hover:bg-red-600/10"
                 onClick={() => router.back()}
               >
                 Cancel

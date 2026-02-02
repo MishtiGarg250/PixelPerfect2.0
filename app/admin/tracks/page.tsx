@@ -32,7 +32,7 @@ async function TracksList() {
             <p className="text-muted-foreground mb-4">
               No learning tracks found.
             </p>
-            <Button className="button-primary" asChild>
+            <Button className="button-admin" asChild>
               <Link href="/admin/tracks/create">
                 <Plus className="w-4 h-4 mr-2" />
                 Create Your First Track
@@ -136,7 +136,7 @@ export default function AdminTracksPage() {
             Create and manage your learning tracks.
           </p>
         </div>
-        <Button asChild className="button-primary">
+        <Button asChild className="button-admin">
           <Link href="/admin/tracks/create">
             <Plus className="w-4 h-4 mr-2" />
             Create Track

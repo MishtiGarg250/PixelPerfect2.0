@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Upsert user in database
+   
     await db.user.upsert({
       where: { clerkUserId },
       update: {

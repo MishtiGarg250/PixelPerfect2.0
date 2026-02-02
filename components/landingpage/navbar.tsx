@@ -3,13 +3,36 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserButton, SignedIn } from "@clerk/nextjs";
 import { SignedOut, SignInButton, SignUpButton } from "@clerk/clerk-react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("about");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/current-user");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!mounted) return;
+        setIsAdmin(data?.role === "admin");
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+      }
+    }
+
+    fetchUser();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const navItems = [
     //{ name: "Home", href: "/", id: "about" },
@@ -82,7 +105,18 @@ export default function Navbar() {
             </div>
             {/* User Auth */}
             <SignedIn>
-              <div className="relative">
+              <div className="relative flex items-center gap-3">
+                {isAdmin && (
+                  <Link href="/admin">
+                    <Button
+                      variant="outline"
+                      className="hidden md:inline-flex bg-gradient-to-r from-[#b5b5f6]/0 to-[#f7bff4]/0 text-gray-200 border-gray-700 hover:bg-[#b5b5f6]/10 transition-all duration-200"
+                    >
+                      Admin
+                    </Button>
+                  </Link>
+                )}
+
                 <UserButton
                   afterSignOutUrl="/"
                   appearance={{
@@ -205,6 +239,16 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
+
+                {isAdmin && (
+                  <div className="mt-4">
+                    <Link href="/admin">
+                      <Button className="w-full bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] text-black transition-all duration-200">
+                        Go to Admin
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </SignedIn>
           </div>

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
 import {
@@ -131,6 +132,15 @@ export default function AdminPage() {
               <span className="text-sm text-gray-300">
                 System Status: All services operational
               </span>
+            </div>
+
+            <div className="ml-auto flex items-center gap-3">
+              <a href="/admin/articles/create">
+                <Button className="button-admin">Create Article</Button>
+              </a>
+              <a href="/admin/tracks/create">
+                <Button className="button-admin">Create Track</Button>
+              </a>
             </div>
           </div>
         </div>

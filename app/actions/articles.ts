@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 interface CreateArticleData {
@@ -12,11 +12,7 @@ interface CreateArticleData {
 }
 
 export async function createArticle(data: CreateArticleData) {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error("Unauthorized");
-  }
+  const user = await requireAdmin();
 
   await db.articles.create({
     data: {
@@ -37,11 +33,7 @@ interface UpdateArticleData extends CreateArticleData {
 }
 
 export async function updateArticle(data: UpdateArticleData) {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error("Unauthorized");
-  }
+  await requireAdmin();
 
   try {
     await db.articles.update({
@@ -72,11 +64,7 @@ export async function getArticleById(id: string) {
 }
 
 export async function deleteArticle(articleId: string) {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error("Unauthorized");
-  }
+  await requireAdmin();
 
   try {
     await db.like.deleteMany({

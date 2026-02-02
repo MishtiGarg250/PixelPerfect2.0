@@ -54,6 +54,51 @@ body{
   color: #4a2530;
 }
 
+/* Admin button with high contrast for dark admin UI */
+.button-admin {
+  background: linear-gradient(90deg, #b5b5f6 0%, #f7bff4 100%);
+  color: #000000;
+  border-radius: 9999px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(181,181,246,0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.button-admin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(181,181,246,0.14);
+}
+
+
+.admin-btn-outline {
+  background: transparent !important;
+  border-color: rgba(255,255,255,0.06) !important;
+  color: #d1d5db !important; /* light gray */
+}
+.admin-btn-outline:hover {
+  background: rgba(255,255,255,0.02) !important;
+}
+
+.admin-btn-ghost {
+  background: transparent !important;
+  color: #d1d5db !important;
+}
+
+/* Small delete/trash button */
+.admin-delete-btn {
+  background: rgba(255,255,255,0.02);
+  color: #ff6b6b;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-delete-btn:hover {
+  background: rgba(255,0,0,0.06);
+}
+
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }

@@ -1,6 +1,7 @@
 import type React from "react";
 import { getCurrentUser } from "@/lib/auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { FileText, BookOpen, BarChart3, ArrowLeft, Shield } from "lucide-react";
 
@@ -11,9 +12,10 @@ export default async function AdminLayout({
 }) {
   const user = await getCurrentUser();
 
-  // if (!user || user.role !== "admin") {
-  //   redirect("/dashboard")
-  // }
+  if (!user || user.role !== "admin") {
+    // Server-side redirect for non-admins
+    redirect("/dashboard");
+  }
 
   return (
     <div className="min-h-screen bg-black">

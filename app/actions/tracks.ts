@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 interface RoadmapItem {
@@ -21,11 +21,7 @@ interface CreateTrackData {
 }
 
 export async function createTrack(data: CreateTrackData) {
-  const user = await getCurrentUser();
-
-  // if (!user || user.role !== "admin") {
-  //   throw new Error("Unauthorized")
-  // }
+  await requireAdmin();
 
   try {
     await db.track.create({
@@ -55,66 +51,107 @@ export async function createTrack(data: CreateTrackData) {
 }
 
 export async function updateTrack(data: CreateTrackData & { id: string }) {
-  const user = await getCurrentUser();
-
-  // if (!user || user.role !== "admin") {
-  //   throw new Error("Unauthorized")
-  // }
+  await requireAdmin();
 
   try {
-    // Delete existing modules and items, then recreate them
-    await db.roadmapItem.deleteMany({
-      where: {
-        module: {
-          trackId: data.id,
-        },
-      },
-    });
+    console.log(`Updating track ${data.id} with ${data.modules.length} modules`);
 
-    await db.module.deleteMany({
-      where: {
-        trackId: data.id,
-      },
-    });
+  
+    const MAX_MODULES = 500;
+    if (data.modules.length > MAX_MODULES) {
+      throw new Error(`Too many modules (${data.modules.length}). Max allowed is ${MAX_MODULES}.`);
+    }
 
-    // Update track and create new modules/items
-    await db.track.update({
-      where: { id: data.id },
-      data: {
-        title: data.title,
-        description: data.description,
-        modules: {
-          create: data.modules.map((module) => ({
-            title: module.title,
-            items: {
-              create: module.items.map((item) => ({
-                title: item.title,
-                link: item.link || null,
-              })),
+    const deleteStart = Date.now();
+    await db.$transaction(
+      async (tx) => {
+        await tx.progress.deleteMany({
+          where: {
+            item: {
+              module: {
+                trackId: data.id,
+              },
             },
-          })),
-        },
-      },
-    });
+          },
+        });
 
+        await tx.roadmapItem.deleteMany({
+          where: {
+            module: {
+              trackId: data.id,
+            },
+          },
+        });
+
+        await tx.module.deleteMany({
+          where: {
+            trackId: data.id,
+          },
+        });
+      },
+      { timeout: 15000 },
+    );
+    
+    const createStart = Date.now();
+
+    await db.$transaction(
+      async (tx) => {
+    
+        await tx.track.update({
+          where: { id: data.id },
+          data: {
+            title: data.title,
+            description: data.description,
+          },
+        });
+
+  
+        function chunkArray<T>(arr: T[], size = 100) {
+          const chunks: T[][] = [];
+          for (let i = 0; i < arr.length; i += size) {
+            chunks.push(arr.slice(i, i + size));
+          }
+          return chunks;
+        }
+
+        for (const module of data.modules) {
+          const createdModule = await tx.module.create({
+            data: {
+              title: module.title,
+              trackId: data.id,
+            },
+          });
+          if (module.items && module.items.length > 0) {
+            const itemsToCreate = module.items.map((item) => ({
+              title: item.title,
+              link: item.link || null,
+              moduleId: createdModule.id,
+            }));
+
+            const chunks = chunkArray(itemsToCreate, 200);
+            for (const chunk of chunks) {
+              await tx.roadmapItem.createMany({ data: chunk });
+            }
+          }
+        }
+      },
+      { timeout: 30000 },
+    );
+
+    
     revalidatePath("/dashboard/tracks");
     revalidatePath("/admin/tracks");
   } catch (error) {
     console.error("Error updating track:", error);
-    throw new Error("Failed to update track");
+    throw new Error(`Failed to update track: ${(error as Error).message}`);
   }
 }
 
 export async function deleteTrack(trackId: string) {
-  const user = await getCurrentUser();
-
-  if (!user || user.role !== "admin") {
-    throw new Error("Unauthorized");
-  }
+  await requireAdmin();
 
   try {
-    // Delete in correct order to handle foreign key constraints
-    // 1. Delete all progress records for items in this track
+
     await db.progress.deleteMany({
       where: {
         item: {
@@ -125,7 +162,6 @@ export async function deleteTrack(trackId: string) {
       },
     });
 
-    // 2. Delete all roadmap items
     await db.roadmapItem.deleteMany({
       where: {
         module: {
@@ -134,14 +170,14 @@ export async function deleteTrack(trackId: string) {
       },
     });
 
-    // 3. Delete all modules
+  
     await db.module.deleteMany({
       where: {
         trackId: trackId,
       },
     });
 
-    // 4. Finally delete the track
+
     await db.track.delete({
       where: {
         id: trackId,

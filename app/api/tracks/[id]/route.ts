@@ -10,7 +10,7 @@ export async function GET(
     const { id } = await params;
     const user = await getCurrentUser();
 
-    if (!user || user.role !== "admin") {
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
