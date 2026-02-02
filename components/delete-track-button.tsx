@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteTrack } from "@/app/actions/tracks";
-import { Trash2, Loader2 } from "lucide-react";
+import { Trash2, Loader2, AlertCircle } from "lucide-react";
 
 interface DeleteTrackButtonProps {
   trackId: string;
@@ -45,28 +45,34 @@ export function DeleteTrackButton({
         <Button
           variant="outline"
           size="sm"
-          className="text-red-400 hover:text-red-300 hover:bg-red-500/10 hover:border-red-500/50"
+          className="bg-transparent border-[#36343a] text-[#efb8c9] hover:bg-[#efb8c9]/10 hover:text-[#efb8c9] hover:border-[#efb8c9]/50 rounded-xl"
         >
           <Trash2 className="w-4 h-4" />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-gray-900 border-gray-800">
+      <AlertDialogContent className="bg-[#211f24] border-[#36343a] rounded-2xl">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-white">
-            Delete Learning Track
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-gray-400">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-xl bg-[#efb8c9]/10">
+              <AlertCircle className="h-5 w-5 text-[#efb8c9]" />
+            </div>
+            <AlertDialogTitle className="text-[#e6e1e9]">
+              Delete Learning Track
+            </AlertDialogTitle>
+          </div>
+          <AlertDialogDescription className="text-[#cac4cf]">
             Are you sure you want to delete{" "}
-            <span className="font-semibold text-white">"{trackTitle}"</span>?
+            <span className="font-semibold text-[#e6e1e9]">"{trackTitle}"</span>
+            ?
             <br />
             <br />
             This action cannot be undone. This will permanently delete the
             track, all its modules, learning items, and user progress data.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="gap-2">
           <AlertDialogCancel
-            className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+            className="bg-transparent border-[#36343a] text-[#cac4cf] hover:bg-[#2b292f] hover:text-[#e6e1e9] rounded-xl"
             disabled={isPending}
           >
             Cancel
@@ -74,7 +80,7 @@ export function DeleteTrackButton({
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isPending}
-            className="bg-red-600 text-white hover:bg-red-700"
+            className="bg-[#efb8c9] text-[#141318] hover:bg-[#efb8c9]/90 rounded-xl"
           >
             {isPending ? (
               <>

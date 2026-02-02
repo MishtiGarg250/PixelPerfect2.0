@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
 import {
@@ -8,8 +7,10 @@ import {
   BookOpen,
   Users,
   MessageCircle,
+  Shield,
   TrendingUp,
   Activity,
+  Sparkles,
 } from "lucide-react";
 
 async function AdminStats() {
@@ -26,74 +27,48 @@ async function AdminStats() {
       title: "Total Articles",
       value: totalArticles,
       icon: FileText,
-      color: "from-[#b5b5f6] to-[#b5b5f6]/70",
-      bgColor: "bg-[#b5b5f6]/10",
-      iconColor: "text-[#b5b5f6]",
-      change: "+12%",
-      changeType: "increase" as const,
+      description: "Published articles",
     },
     {
       title: "Learning Tracks",
       value: totalTracks,
       icon: BookOpen,
-      color: "from-[#f7bff4] to-[#f7bff4]/70",
-      bgColor: "bg-[#f7bff4]/10",
-      iconColor: "text-[#f7bff4]",
-      change: "+8%",
-      changeType: "increase" as const,
+      description: "Active roadmaps",
     },
     {
       title: "Total Users",
       value: totalUsers,
       icon: Users,
-      color: "from-[#b5b5f6] to-[#f7bff4]",
-      bgColor: "bg-gradient-to-br from-[#b5b5f6]/10 to-[#f7bff4]/10",
-      iconColor: "text-[#b5b5f6]",
-      change: "+24%",
-      changeType: "increase" as const,
+      description: "Registered users",
     },
     {
-      title: "Total Comments",
+      title: "Comments",
       value: totalComments,
       icon: MessageCircle,
-      color: "from-[#f7bff4] to-[#b5b5f6]",
-      bgColor: "bg-gradient-to-br from-[#f7bff4]/10 to-[#b5b5f6]/10",
-      iconColor: "text-[#f7bff4]",
-      change: "+18%",
-      changeType: "increase" as const,
+      description: "User discussions",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 px-6 md:px-8 gap-6">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
           <Card
+            className="bg-[#211f24] border-1 border-[#2b292f] hover:border-[#b5b5f6]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#b5b5f6]/10"
             key={stat.title}
-            className="bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:border-[#b5b5f6]/30 hover:shadow-lg hover:shadow-[#b5b5f6]/10 group"
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <CardTitle className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-[#e7e0e8]">
                 {stat.title}
               </CardTitle>
-              <div
-                className={`p-2 rounded-lg ${stat.bgColor} transition-all duration-300 group-hover:scale-110`}
-              >
-                <Icon className={`h-5 w-5 ${stat.iconColor}`} />
-              </div>
+              <Icon className="h-4 w-4 text-[#d2bcfd]" />
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="text-3xl font-bold text-white">
-                {stat.value.toLocaleString()}
+            <CardContent>
+              <div className="text-4xl font-bold text-[#d2bcfd]">
+                {stat.value}
               </div>
-              {/* <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  <TrendingUp className="h-3 w-3 text-green-400" />
-                  <span className="text-sm font-medium text-green-400">{stat.change}</span>
-                </div>
-                <span className="text-xs text-gray-500">vs last month</span>
-              </div> */}
+              <p className="text-xs mt-2 text-[#cbc4cf]">{stat.description}</p>
             </CardContent>
           </Card>
         );
@@ -102,66 +77,171 @@ async function AdminStats() {
   );
 }
 
+async function RecentActivity() {
+  const recentArticles = await db.articles.findMany({
+    take: 5,
+    orderBy: { createdAt: "desc" },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+
+  const recentComments = await db.comment.findMany({
+    take: 5,
+    orderBy: { createdAt: "desc" },
+    include: {
+      user: {
+        select: { name: true },
+      },
+      article: {
+        select: { title: true },
+      },
+    },
+  });
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 px-6 md:px-8 gap-6 mt-8">
+      {/* Recent Articles */}
+      <Card className="bg-[#211f24] border-[#2b292f]">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-semibold text-[#e6e1e9] flex items-center gap-2">
+              <FileText className="h-5 w-5 text-[#d2bcfd]" />
+              Recent Articles
+            </CardTitle>
+            <span className="text-xs text-[#938f99] bg-[#36343a] px-2 py-1 rounded-full">
+              Last 5
+            </span>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {recentArticles.length === 0 ? (
+            <p className="text-[#938f99] text-sm text-center py-4">
+              No articles yet
+            </p>
+          ) : (
+            recentArticles.map((article) => (
+              <div
+                key={article.id}
+                className="flex items-center justify-between p-3 bg-[#2b292f] rounded-xl hover:bg-[#36343a] transition-colors duration-200"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-[#e6e1e9] truncate">
+                    {article.title}
+                  </p>
+                  <p className="text-xs text-[#938f99]">
+                    by {article.author.name}
+                  </p>
+                </div>
+                <span className="text-xs text-[#cebdfe] bg-[#cebdfe]/10 px-2 py-1 rounded-full ml-2">
+                  {article.category}
+                </span>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Recent Comments */}
+      <Card className="bg-[#211f24] border-[#2b292f]">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-semibold text-[#e6e1e9] flex items-center gap-2">
+              <MessageCircle className="h-5 w-5 text-[#efb8c9]" />
+              Recent Comments
+            </CardTitle>
+            <span className="text-xs text-[#938f99] bg-[#36343a] px-2 py-1 rounded-full">
+              Last 5
+            </span>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {recentComments.length === 0 ? (
+            <p className="text-[#938f99] text-sm text-center py-4">
+              No comments yet
+            </p>
+          ) : (
+            recentComments.map((comment) => (
+              <div
+                key={comment.id}
+                className="flex items-center justify-between p-3 bg-[#2b292f] rounded-xl hover:bg-[#36343a] transition-colors duration-200"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-[#e6e1e9] truncate">
+                    {comment.body.substring(0, 50)}
+                    {comment.body.length > 50 ? "..." : ""}
+                  </p>
+                  <p className="text-xs text-[#938f99]">
+                    by {comment.user.name} on "{comment.article.title}"
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#151218]">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] h-2"></div>
-
-      <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 rounded-xl bg-gradient-to-r from-[#b5b5f6]/20 to-[#f7bff4]/20 border border-[#b5b5f6]/30">
-              <Activity className="h-8 w-8 text-[#b5b5f6]" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-[#b5b5f6] to-[#f7bff4] bg-clip-text text-transparent">
-                Admin Overview
-              </h1>
-              <p className="text-gray-400 text-lg mt-2">
-                Manage your learning platform from here.
-              </p>
-            </div>
+      <div className="p-6 pt-18 md:pt-8 md:p-8">
+        <div className="flex items-center gap-4 md:mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-[#b5b5f6] to-[#f7bff4] rounded-2xl flex items-center justify-center shadow-lg">
+            <Shield className="w-7 h-7 text-[#141318]" />
           </div>
-
-          {/* Quick Actions */}
-          <div className="flex items-center gap-4 p-4 bg-gray-900/50 rounded-lg border border-gray-800">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-300">
-                System Status: All services operational
-              </span>
-            </div>
-
-            <div className="ml-auto flex items-center gap-3">
-              <a href="/admin/articles/create">
-                <Button className="button-admin">Create Article</Button>
-              </a>
-              <a href="/admin/tracks/create">
-                <Button className="button-admin">Create Track</Button>
-              </a>
-            </div>
+          <div>
+            <h1 className="text-[30px] md:text-5xl font-bold text-[#e6e1e9]">
+              Admin Overview
+            </h1>
+            <p className="text-[#cac4cf] text-sm md:text-[16px] md:mt-2">
+              Manage your Pixel Perfect platform
+            </p>
           </div>
         </div>
-
-        {/* Stats Cards */}
-        <Suspense
-          fallback={
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...Array(4)].map((_, i) => (
-                <Card key={i} className="bg-gray-900/50 border-gray-800">
-                  <CardContent className="p-6">
-                    <LoadingSpinner />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          }
-        >
-          <AdminStats />
-        </Suspense>
       </div>
+
+      {/* Stats Bar */}
+      <div className="flex flex-col mb-8 md:flex-row mx-6 md:mx-8 md:items-center gap-3 md:gap-6 p-4 bg-[#211f24] rounded-2xl border border-[#36343a] backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <Activity className="w-5 h-5 text-green-400" />
+          <span className="text-[#cac4cf]">System Status:</span>
+          <span className="text-green-400 font-medium">All Operational</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-[#cebdfe]" />
+          <span className="text-[#cac4cf]">
+            Full administrative access enabled
+          </span>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <Suspense
+        fallback={
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 px-6 md:px-8 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <Card key={i} className="bg-[#211f24] border-[#2b292f]">
+                <CardContent className="p-6 flex items-center justify-center">
+                  <LoadingSpinner />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        }
+      >
+        <AdminStats />
+      </Suspense>
+
+      {/* Recent Activity */}
+      <Suspense fallback={<LoadingSpinner />}>
+        <RecentActivity />
+      </Suspense>
     </div>
   );
 }
