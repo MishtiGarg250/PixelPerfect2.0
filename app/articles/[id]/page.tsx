@@ -2,17 +2,18 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
-import { Calendar, Clock, ArrowLeft, BookOpen } from "lucide-react";
+import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { LikeButton } from "@/components/like-button";
 import { CommentSection } from "@/components/comment-section";
 import { ShareButton } from "@/components/share-button";
+import { MarkdownPreview } from "@/components/markdown-preview";
 import { formatDistanceToNow } from "date-fns";
 
 async function ArticleContent({ articleId }: { articleId: string }) {
@@ -65,16 +66,16 @@ async function ArticleContent({ articleId }: { articleId: string }) {
       <Card className="bg-[#211f24] border-[#36343a] backdrop-blur-sm overflow-hidden p-0">
         {/* Featured Image */}
         <div className="relative aspect-video bg-gradient-to-br md:mt-[-24px] from-[#b5b5f6]/20 to-[#f7bff4]/20">
-          {
+          {article.featuredImage && (
             <Image
               src={article.featuredImage}
               alt={article.title}
               fill
               className="object-cover"
             />
-          }
+          )}
           <div className="absolute top-4 md:top-6 right-4 md:right-6">
-            <Badge className=" bg-[#cebdfe]/20 text-[#cebdfe] rounded-full px-4 py-2 border-[#cebdfe]/30 backdrop-blur-sm">
+            <Badge className="bg-[#cebdfe]/20 text-[#cebdfe] rounded-full px-4 py-2 border-[#cebdfe]/30 backdrop-blur-sm">
               {article.category}
             </Badge>
           </div>
@@ -119,15 +120,9 @@ async function ArticleContent({ articleId }: { articleId: string }) {
             </div>
           </div>
 
-          {/* Article Content */}
-          <div className="prose prose-lg prose-invert max-w-none mb-5 md:mb-8">
-            <div className="text-[#e6e1e9] leading-relaxed space-y-6">
-              {article.content.split("\n").map((paragraph, index) => (
-                <p key={index} className="text-[16px] md:text-lg leading-8">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+          {/* Article Content - Now using Markdown */}
+          <div className="mb-5 md:mb-8">
+            <MarkdownPreview content={article.content} />
           </div>
 
           {/* Engagement Actions */}
@@ -155,7 +150,6 @@ async function ArticleContent({ articleId }: { articleId: string }) {
       </Card>
 
       {/* Comments Section */}
-
       <CommentSection articleId={article.id} />
     </div>
   );
